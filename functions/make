@@ -1,0 +1,16 @@
+#
+# Highlights make output.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+function make {
+  if (( $+commands[colormake] )); then
+    colormake "$@"
+  else
+    command make "$@"
+  fi
+}
+
+make "$@"

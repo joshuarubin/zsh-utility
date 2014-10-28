@@ -7,9 +7,6 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-# Load dependencies.
-pmodload 'helper' 'spectrum'
-
 # Correct commands.
 setopt CORRECT
 
@@ -64,30 +61,22 @@ if is-callable 'dircolors'; then
   # GNU Core Utilities
   alias ls='ls --group-directories-first'
 
-  if zstyle -t ':prezto:module:utility:ls' color; then
-    if [[ -s "$HOME/.dir_colors" ]]; then
-      eval "$(dircolors --sh "$HOME/.dir_colors")"
-    else
-      eval "$(dircolors --sh)"
-    fi
-
-    alias ls="$aliases[ls] --color=auto"
+  if [[ -s "$HOME/.dir_colors" ]]; then
+    eval "$(dircolors --sh "$HOME/.dir_colors")"
   else
-    alias ls="$aliases[ls] -F"
+    eval "$(dircolors --sh)"
   fi
+
+  alias ls="$aliases[ls] --color=auto"
 else
   # BSD Core Utilities
-  if zstyle -t ':prezto:module:utility:ls' color; then
-    # Define colors for BSD ls.
-    export LSCOLORS='exfxcxdxbxGxDxabagacad'
+  # Define colors for BSD ls.
+  export LSCOLORS='exfxcxdxbxGxDxabagacad'
 
-    # Define colors for the completion system.
-    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
+  # Define colors for the completion system.
+  export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
 
-    alias ls='ls -G'
-  else
-    alias ls='ls -F'
-  fi
+  alias ls='ls -G'
 fi
 
 alias l='ls -1A'         # Lists in one column, hidden files.
@@ -185,3 +174,7 @@ function find-exec {
 function psu {
   ps -U "${1:-$USER}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"
 }
+
+local fdir=$0:A:h/functions
+fpath+=$fdir
+autoload -Uz $fdir/*(:t)
