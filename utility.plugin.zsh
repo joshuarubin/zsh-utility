@@ -57,6 +57,7 @@ alias pu='pushd'
 #alias rm="${aliases[rm]:-rm} -i"
 alias type='type -a'
 alias reload!='. ~/.zshrc'
+alias gn='geeknote'
 
 # Global aliases
 alias -g ...='../..'
