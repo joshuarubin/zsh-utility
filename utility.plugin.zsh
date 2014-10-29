@@ -29,6 +29,7 @@ alias mkdir='nocorrect mkdir'
 alias mv='nocorrect mv'
 alias mysql='nocorrect mysql'
 alias rm='nocorrect rm'
+alias grunt='nocorrect grunt'
 
 # Disable globbing.
 alias bower='noglob bower'
