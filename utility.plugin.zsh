@@ -78,14 +78,6 @@ alias c="clear"
 alias cdc="cd && clear"
 alias screen="screen -T ${TERM}"
 
-if (( $+commands[gitjk_cmd] )); then
-  alias gitjk="history -n | tail -n 10 | (tac || tail -r) | gitjk_cmd"
-fi
-
-if (( $+commands[gh] )); then
-  eval "$(gh alias -s)"
-fi
-
 alias vim="stty stop '' -ixoff ; vim" # allow mapping <C-s> in the terminal
 
 # ls
