@@ -55,6 +55,19 @@ alias po='popd'
 alias pu='pushd'
 alias rm="${aliases[rm]:-rm} -i"
 alias type='type -a'
+alias reload!='. ~/.zshrc'
+
+# Global aliases
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g C='| wc -l'
+#alias -g H='| head'
+alias -g L="| less"
+alias -g N="| /dev/null"
+alias -g S='| sort'
+alias -g G='| grep' # now you can do: ls foo G something
+alias vim="stty stop '' -ixoff ; vim" # allow mapping <C-s> in the terminal
 
 # ls
 if is-callable 'dircolors'; then
@@ -173,6 +186,13 @@ function find-exec {
 # Displays user owned processes status.
 function psu {
   ps -U "${1:-$USER}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"
+}
+
+# (f)ind by (n)ame
+# usage: fn foo
+# to find all files containing 'foo' in the name
+function fn {
+  ls -d **/*$1*
 }
 
 local fdir=$0:A:h/functions
