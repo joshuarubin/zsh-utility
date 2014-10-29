@@ -54,7 +54,7 @@ alias mv="${aliases[mv]:-mv} -i"
 alias p='${(z)PAGER}'
 alias po='popd'
 alias pu='pushd'
-alias rm="${aliases[rm]:-rm} -i"
+#alias rm="${aliases[rm]:-rm} -i"
 alias type='type -a'
 alias reload!='. ~/.zshrc'
 
@@ -68,6 +68,23 @@ alias -g L="| less"
 alias -g N="| /dev/null"
 alias -g S='| sort'
 alias -g G='| grep' # now you can do: ls foo G something
+
+alias l="ls -lAh"
+alias ll="ls -l"
+alias la="ls -A"
+alias v="ls -l"
+alias c="clear"
+alias cdc="cd && clear"
+alias screen="screen -T ${TERM}"
+
+if (( $+commands[gitjk_cmd] )); then
+  alias gitjk="history -n | tail -n 10 | (tac || tail -r) | gitjk_cmd"
+fi
+
+if (( $+commands[gh] )); then
+  eval "$(gh alias -s)"
+fi
+
 alias vim="stty stop '' -ixoff ; vim" # allow mapping <C-s> in the terminal
 
 # ls
