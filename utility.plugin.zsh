@@ -77,6 +77,7 @@ alias v="ls -l"
 alias c="clear"
 alias cdc="cd && clear"
 alias screen="screen -T ${TERM}"
+alias json="python -mjson.tool"
 
 alias vim="stty stop '' -ixoff ; vim" # allow mapping <C-s> in the terminal
 
