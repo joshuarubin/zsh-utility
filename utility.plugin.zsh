@@ -47,7 +47,9 @@ alias sftp='noglob sftp'
 alias _='sudo'
 alias b='${(z)BROWSER}'
 alias cp="${aliases[cp]:-cp} -i"
-alias e='${(z)VISUAL:-${(z)EDITOR}}'
+#alias e='${(z)VISUAL:-${(z)EDITOR}}'
+alias e='f -t -e vim -b viminfo' # quick opening files with vim
+alias m='f -t -e mvim -b viminfo' # quick opening files with mvim
 alias ln="${aliases[ln]:-ln} -i"
 alias mkdir="${aliases[mkdir]:-mkdir} -p"
 alias mv="${aliases[mv]:-mv} -i"
@@ -118,13 +120,13 @@ alias sl='ls'            # I often screw this up.
 
 # Mac OS X Everywhere
 if [[ "$OSTYPE" == darwin* ]]; then
-  alias o='open'
+  alias o='a -e open' # quick opening files with open
 elif [[ "$OSTYPE" == cygwin* ]]; then
   alias o='cygstart'
   alias pbcopy='tee > /dev/clipboard'
   alias pbpaste='cat /dev/clipboard'
 else
-  alias o='xdg-open'
+  alias o='a -e xdg-open'
 
   if (( $+commands[xclip] )); then
     alias pbcopy='xclip -selection clipboard -in'
