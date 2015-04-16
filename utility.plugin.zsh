@@ -121,6 +121,14 @@ alias sl='ls'            # I often screw this up.
 # Mac OS X Everywhere
 if [[ "$OSTYPE" == darwin* ]]; then
   alias o='a -e open' # quick opening files with open
+
+  if (( $+commands[brew] )); then
+    brew ls curl > /dev/null 2>&1
+
+    if [ $? -eq 0 ]; then
+      alias curl=`brew ls curl | grep '\/bin\/curl$'`
+    fi
+  fi
 elif [[ "$OSTYPE" == cygwin* ]]; then
   alias o='cygstart'
   alias pbcopy='tee > /dev/clipboard'
