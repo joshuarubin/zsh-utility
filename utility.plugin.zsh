@@ -218,3 +218,5 @@ function fn {
 local fdir=$0:A:h/functions
 fpath+=$fdir
 autoload -Uz $fdir/*(:t)
+
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
