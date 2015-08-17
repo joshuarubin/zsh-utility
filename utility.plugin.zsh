@@ -71,7 +71,7 @@ alias -g S='| sort'
 alias -g G='| grep' # now you can do: ls foo G something
 
 alias l="ls -lAh"
-alias ll="ls -l"
+# alias ll="ls -l"
 alias la="ls -A"
 alias v="ls -l"
 alias c="clear"
@@ -105,7 +105,7 @@ else
 fi
 
 alias l='ls -1A'         # Lists in one column, hidden files.
-alias ll='ls -lh'        # Lists human readable sizes.
+# alias ll='ls -lh'        # Lists human readable sizes.
 alias lr='ll -R'         # Lists human readable sizes, recursively.
 alias la='ll -A'         # Lists human readable sizes, hidden files.
 alias lm='la | "$PAGER"' # Lists human readable sizes, hidden files through pager.
@@ -214,6 +214,21 @@ function psu {
 function fn {
   ls -d **/*$1*
 }
+
+# termtile
+if [ -e ~/.termtile/tile.scpt ]; then
+  alias ul='osascript ~/.termtile/tile.scpt up left'
+  alias ur='osascript ~/.termtile/tile.scpt up right'
+  alias dl='osascript ~/.termtile/tile.scpt down left'
+  alias dr='osascript ~/.termtile/tile.scpt down right'
+  alias ll='osascript ~/.termtile/tile.scpt left'
+  alias rr='osascript ~/.termtile/tile.scpt right'
+  alias up='osascript ~/.termtile/tile.scpt up'
+  alias down='osascript ~/.termtile/tile.scpt down'
+  alias big='osascript ~/.termtile/resize.scpt '
+  alias cen='osascript ~/.termtile/center.scpt '
+  alias max='osascript ~/.termtile/maximize.scpt '
+fi
 
 local fdir=$0:A:h/functions
 fpath+=$fdir
