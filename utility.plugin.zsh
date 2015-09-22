@@ -87,9 +87,9 @@ if is-callable 'dircolors'; then
   alias ls='ls --group-directories-first'
 
   if [[ -s "$HOME/.dir_colors" ]]; then
-    eval "$(dircolors --sh "$HOME/.dir_colors")"
+    eval "$(dircolors --sh "$HOME/.dir_colors" 2> /dev/null)"
   else
-    eval "$(dircolors --sh)"
+    eval "$(dircolors --sh 2> /dev/null)"
   fi
 
   alias ls="$aliases[ls] --color=auto"
