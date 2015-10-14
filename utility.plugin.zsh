@@ -60,9 +60,6 @@ alias reload!='. ~/.zshrc'
 alias gn='geeknote'
 
 # Global aliases
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
 alias -g C='| wc -l'
 #alias -g H='| head'
 alias -g L="| less"
@@ -86,22 +83,30 @@ if is-callable 'dircolors'; then
   # GNU Core Utilities
   alias ls='ls --group-directories-first'
 
-  if [[ -s "$HOME/.dir_colors" ]]; then
-    eval "$(dircolors --sh "$HOME/.dir_colors" 2> /dev/null)"
-  else
-    eval "$(dircolors --sh 2> /dev/null)"
-  fi
+  if zstyle -t ':prezto:module:utility:ls' color; then
+    if [[ -s "$HOME/.dir_colors" ]]; then
+      eval "$(dircolors --sh "$HOME/.dir_colors" 2> /dev/null)"
+    else
+      eval "$(dircolors --sh 2> /dev/null)"
+    fi
 
-  alias ls="$aliases[ls] --color=auto"
+    alias ls="${aliases[ls]:-ls} --color=auto"
+  else
+    alias ls="${aliases[ls]:-ls} -F"
+  fi
 else
   # BSD Core Utilities
-  # Define colors for BSD ls.
-  export LSCOLORS='exfxcxdxbxGxDxabagacad'
+  if zstyle -t ':prezto:module:utility:ls' color; then
+    # Define colors for BSD ls.
+    export LSCOLORS='exfxcxdxbxGxDxabagacad'
 
-  # Define colors for the completion system.
-  export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
+    # Define colors for the completion system.
+    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
 
-  alias ls='ls -G'
+    alias ls="${aliases[ls]:-ls} -G"
+  else
+    alias ls="${aliases[ls]:-ls} -F"
+  fi
 fi
 
 alias l='ls -1A'         # Lists in one column, hidden files.
@@ -116,9 +121,17 @@ alias lc='lt -c'         # Lists sorted by date, most recent last, shows change 
 alias lu='lt -u'         # Lists sorted by date, most recent last, shows access time.
 alias sl='ls'            # I often screw this up.
 
+# Grep
+if zstyle -t ':prezto:module:utility:grep' color; then
+  export GREP_COLOR='37;45'           # BSD.
+  export GREP_COLORS="mt=$GREP_COLOR" # GNU.
+
+  alias grep="${aliases[grep]:-grep} --color=auto"
+fi
+
 # Mac OS X Everywhere
 if [[ "$OSTYPE" == darwin* ]]; then
-  alias o='a -e open' # quick opening files with open
+  alias o='open'
 
   if (( $+commands[brew] )); then
     brew ls curl > /dev/null 2>&1
@@ -132,7 +145,7 @@ elif [[ "$OSTYPE" == cygwin* ]]; then
   alias pbcopy='tee > /dev/clipboard'
   alias pbpaste='cat /dev/clipboard'
 else
-  alias o='a -e xdg-open'
+  alias o='xdg-open'
 
   if (( $+commands[xclip] )); then
     alias pbcopy='xclip -selection clipboard -in'
@@ -160,8 +173,13 @@ alias du='du -kh'
 if (( $+commands[htop] )); then
   alias top=htop
 else
-  alias topc='top -o cpu'
-  alias topm='top -o vsize'
+  if [[ "$OSTYPE" == (darwin*|*bsd*) ]]; then
+    alias topc='top -o cpu'
+    alias topm='top -o vsize'
+  else
+    alias topc='top -o %CPU'
+    alias topm='top -o %MEM'
+  fi
 fi
 
 # Miscellaneous
@@ -205,7 +223,7 @@ function find-exec {
 
 # Displays user owned processes status.
 function psu {
-  ps -U "${1:-$USER}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"
+  ps -U "${1:-$LOGNAME}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"
 }
 
 # (f)ind by (n)ame

@@ -6,8 +6,12 @@
 #
 
 function make {
-  if (( $+commands[colormake] )); then
-    colormake "$@"
+  if zstyle -t ':prezto:module:utility:make' color; then
+    if (( $+commands[colormake] )); then
+      colormake "$@"
+    else
+      command make "$@"
+    fi
   else
     command make "$@"
   fi
