@@ -42,7 +42,8 @@ alias rake='noglob rake'
 alias rsync='noglob rsync'
 
 # Define general aliases.
-alias _='sudo'
+alias sudo='sudo '
+alias _='sudo '
 alias b='${(z)BROWSER}'
 alias cp="${aliases[cp]:-cp} -i"
 #alias e='${(z)VISUAL:-${(z)EDITOR}}'
@@ -132,6 +133,7 @@ fi
 # Mac OS X Everywhere
 if [[ "$OSTYPE" == darwin* ]]; then
   alias o='open'
+  alias listeners='lsof -nPiTCP | grep LISTEN'
 
   if (( $+commands[brew] )); then
     brew ls curl > /dev/null 2>&1
