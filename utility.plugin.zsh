@@ -61,6 +61,9 @@ alias reload!='. ~/.zshrc'
 alias gn='geeknote'
 
 # Global aliases
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
 alias -g C='| wc -l'
 #alias -g H='| head'
 alias -g L="| less"
