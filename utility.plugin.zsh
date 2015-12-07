@@ -258,3 +258,6 @@ fpath+=$fdir
 autoload -Uz $fdir/*(:t)
 
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+autoload run-help
+HELPDIR=/usr/local/share/zsh/help
