@@ -136,14 +136,6 @@ fi
 if [[ "$OSTYPE" == darwin* ]]; then
   alias o='open'
   alias listeners='lsof -nPiTCP | grep LISTEN'
-
-  if (( $+commands[brew] )); then
-    brew ls curl > /dev/null 2>&1
-
-    if [ $? -eq 0 ]; then
-      alias curl=`brew ls curl | grep '\/bin\/curl$'`
-    fi
-  fi
 elif [[ "$OSTYPE" == cygwin* ]]; then
   alias o='cygstart'
   alias pbcopy='tee > /dev/clipboard'
