@@ -59,6 +59,8 @@ alias type='type -a'
 alias reload!='. ~/.zshrc'
 alias gn='geeknote'
 
+alias rg='rg --smart-case'
+
 # Global aliases
 alias -g ...='../..'
 alias -g ....='../../..'
