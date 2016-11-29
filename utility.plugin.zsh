@@ -81,7 +81,7 @@ alias cdc="cd && clear"
 alias screen="screen -T ${TERM}"
 alias json="python -mjson.tool"
 
-alias vim="stty stop '' -ixoff ; vim" # allow mapping <C-s> in the terminal
+stty -ixon
 
 # ls
 if is-callable 'dircolors'; then
@@ -138,6 +138,7 @@ fi
 if [[ "$OSTYPE" == darwin* ]]; then
   alias o='open'
   alias listeners='lsof -nPiTCP | grep LISTEN'
+  alias tmux='tmux -f ~/.tmux-osx.conf'
 elif [[ "$OSTYPE" == cygwin* ]]; then
   alias o='cygstart'
   alias pbcopy='tee > /dev/clipboard'
